@@ -3,6 +3,7 @@
 Este repositorio es una guía práctica para aprender a estructurar, dockerizar y desplegar una aplicación web siguiendo los principios de **CI/CD** con **GitHub Actions**, **Vercel** y **Render**.
 
 Utiliza:
+
 - **Frontend:** Vue 3 + Vite + Tailwind CSS
 - **Backend:** FastAPI (Python)
 - **Desarrollo:** Docker Compose
@@ -45,9 +46,11 @@ El repositorio está organizado siguiendo el patrón de monorepositorio sencillo
 Para asegurar que todos los desarrolladores trabajen en el mismo entorno, utilizamos **Docker Compose**. Esto emula cómo funcionará la aplicación en producción.
 
 ### Requisitos:
+
 - Docker y Docker Compose instalados.
 
 ### Pasos:
+
 1. Clona el repositorio.
 2. Desde la raíz, levanta ambos servicios:
    ```bash
@@ -161,9 +164,9 @@ El objetivo es que cada vez que hagas un `git push` a la rama `main`, la aplicac
 
 ---
 
-### B. Despliegue del Frontend (Vercel). Opción 1: Desde la Web (Recomendado)
+### B. Despliegue del Frontend (Vercel)
 
-**Opción más rápida y visual:**
+**Despliegue automático mediante GitHub Actions:**
 
 1. Ve a [Vercel.com](https://vercel.com) e inicia sesión (o crea una cuenta con GitHub).
 2. Haz clic en **"Add New"** > **"Project"**.
@@ -183,15 +186,39 @@ El objetivo es que cada vez que hagas un `git push` a la rama `main`, la aplicac
 6. Haz clic en **"Deploy"** y espera a que termine.
 7. Una vez desplegado, tu frontend estará disponible en una URL como: `https://vercel-render-frontend-xxx.vercel.app`
 
-**¿Qué sucede automáticamente?**
-- Cada vez que hagas `git push` a la rama `main`, Vercel reconstruye y despliega automáticamente.
-- Los cambios se verán en la web en menos de 1 minuto.
+**Obtener el token de Vercel para GitHub Actions CI/CD:**
+
+8. Ve a [Vercel Settings > Tokens](https://vercel.com/account/tokens).
+9. Haz clic en **"Create"**.
+10. Asigna un nombre descriptivo (ej: `GitHub CI/CD`).
+11. Selecciona el scope: **Full Account**
+12. Haz clic en **"Create Token"** y copia el token completo.
+
+**Configurar el token en GitHub Secrets:**
+
+13. Ve a tu repositorio en GitHub > **Settings** > **Secrets and variables** > **Actions**.
+14. Crea un nuevo Secret:
+    - **Name:** `VERCEL_TOKEN`
+    - **Value:** Pega el token de Vercel copiado
+15. Haz clic en **"Add secret"**.
+
+**¿Qué sucede ahora?**
+- El workflow `deploy-frontend.yaml` ya está configurado en `.github/workflows/`
+- Cada vez que hagas `git push` a la rama `main` (cambios en `frontend/**`), GitHub Actions ejecutará el despliegue
+- Vercel recibe los comandos y despliega tu aplicación automáticamente
+- Los cambios se verán en la web en 2-3 minutos
+
+**Verifica que funciona:**
+- En GitHub, ve a **Actions** después de hacer push
+- Verás el workflow `Deploy Frontend to Vercel` ejecutándose
+- En Vercel Dashboard, verás nuevos despliegues iniciándose automáticamente
 
 ---
 
 ## 5. Conceptos Clave
 
 ### Docker Multi-stage
+
 En los `Dockerfile`, utilizamos dos o más fases:
 - **Builder:** Instala dependencias y compila/construye la aplicación
 - **Runner/Development:** Solo copia lo necesario para ejecutar
@@ -199,6 +226,7 @@ En los `Dockerfile`, utilizamos dos o más fases:
 Esto reduce el tamaño de las imágenes, mejora la seguridad y acelera el despliegue.
 
 ### CORS (Cross-Origin Resource Sharing)
+
 El backend está configurado para aceptar peticiones del frontend. Sin esto, el navegador bloquearía la conexión por seguridad.
 
 ```python
@@ -206,6 +234,7 @@ app.add_middleware(CORSMiddleware, allow_origins=["*"])
 ```
 
 ### Variables de Entorno
+
 - **Frontend:** `VITE_API_URL` indica dónde está el backend
 - **Backend:** `PORT` indica en qué puerto escuchar
 
