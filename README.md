@@ -2,16 +2,43 @@
 
 Este repositorio es una guía práctica para aprender a estructurar, dockerizar y desplegar una aplicación web siguiendo los principios de **CI/CD** con **GitHub Actions**, **Vercel** y **Render**.
 
-Utiliza:
+Este proyecto utiliza:
 
 - **Frontend:** Vue 3 + Vite + Tailwind CSS
 - **Backend:** FastAPI (Python)
 - **Desarrollo:** Docker Compose
 - **Despliegue:** GitHub Actions + Render + Vercel
 
+## ¿Qué son Vercel y Render?
+
+**[Vercel](https://vercel.com)** es una plataforma de despliegue para frontend optimizada para Vue, React, Next.js, etc. Ofrece despliegue automático, CDN global y baja latencia.
+
+**[Render](https://render.com)** es una plataforma de despliegue para backend, APIs y bases de datos. Maneja automáticamente SSL, escalado e infraestructura.
+
+En este proyecto usaremos **Vercel** para el despliegue del frontend (Vue 3) y **Render** para el despliegue del backend (FastAPI).
+
 ---
 
-## Estructura del proyecto
+## Índice
+
+1. [Estructura del Proyecto](#1-estructura-del-proyecto)
+2. [Desarrollo Local con Docker](#2-desarrollo-local-con-docker)
+3. [Estructura del Frontend](#3-estructura-del-frontend)
+4. [Estructura del Backend](#4-estructura-del-backend)
+5. [Guía de Despliegue (CI/CD)](#5-guía-de-despliegue-cicd)
+   - [Despliegue del Backend (Render)](#a-despliegue-del-backend-render)
+   - [Despliegue del Frontend (Vercel)](#b-despliegue-del-frontend-vercel)
+6. [Conceptos Clave](#6-conceptos-clave)
+7. [Tecnologías Utilizadas](#7-tecnologías-utilizadas)
+8. [Comandos Útiles](#8-comandos-útiles)
+9. [Próximos Pasos](#9-próximos-pasos)
+10. [Licencia](#licencia)
+9. [Próximos Pasos](#8-próximos-pasos)
+10. [Licencia](#licencia)
+
+---
+
+## 1. Estructura del Proyecto
 
 El repositorio está organizado siguiendo el patrón de monorepositorio sencillo, donde cada servicio tiene su propia responsabilidad y configuración:
 
@@ -41,7 +68,7 @@ El repositorio está organizado siguiendo el patrón de monorepositorio sencillo
 
 ---
 
-## 1. Desarrollo local con Docker
+## 2. Desarrollo Local con Docker
 
 Para asegurar que todos los desarrolladores trabajen en el mismo entorno, utilizamos **Docker Compose**. Esto emula cómo funcionará la aplicación en producción.
 
@@ -63,7 +90,7 @@ Para asegurar que todos los desarrolladores trabajen en el mismo entorno, utiliz
 
 ---
 
-## 2. Estructura del Frontend
+## 3. Estructura del Frontend
 
 ### Componentes principales:
 
@@ -96,7 +123,7 @@ VITE_API_URL=https://tu-api.onrender.com
 
 ---
 
-## 3. Estructura del Backend
+## 4. Estructura del Backend
 
 ### Endpoints disponibles:
 
@@ -120,7 +147,7 @@ app.add_middleware(
 
 ---
 
-## 4. Guía de Despliegue (CI/CD)
+## 5. Guía de Despliegue (CI/CD)
 
 El objetivo es que cada vez que hagas un `git push` a la rama `main`, la aplicación se actualice automáticamente en internet.
 
@@ -215,7 +242,7 @@ El objetivo es que cada vez que hagas un `git push` a la rama `main`, la aplicac
 
 ---
 
-## 5. Conceptos Clave
+## 6. Conceptos Clave
 
 ### Docker Multi-stage
 
@@ -248,7 +275,7 @@ Nunca subas contraseñas, tokens o claves al repositorio. Usa siempre:
 
 ---
 
-## 6. Tecnologías utilizadas
+## 7. Tecnologías Utilizadas
 
 | Componente | Tecnología | Versión |
 |-----------|-----------|---------|
@@ -262,7 +289,7 @@ Nunca subas contraseñas, tokens o claves al repositorio. Usa siempre:
 
 ---
 
-## 7. Comandos útiles durante el desarrollo
+## 8. Comandos Útiles
 
 ```bash
 # Desarrollo local
@@ -283,7 +310,7 @@ docker compose exec frontend npm install
 
 ---
 
-## 8. Próximos pasos
+## 9. Próximos Pasos
 
 - [ ] Agregar autenticación con JWT
 - [ ] Implementar base de datos (PostgreSQL)
