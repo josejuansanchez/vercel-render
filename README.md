@@ -214,7 +214,7 @@ El objetivo es que cada vez que hagas un `git push` a la rama `main`, la aplicac
 **Base de Datos MySQL en Producción (Railway):**
 
 - Crea una base de datos MySQL en Railway.
-- Copia la cadena de conexión (Railway te la provee).
+- Copia la cadena de conexión que te proporciona Railway. La puedes encontrar en la sección de variables de entorno de tu proyecto, en la variable `MYSQL_PUBLIC_URL`. 
 - En Render > tu servicio backend > **Environment Variables**, agrega:
    - **Name:** `DATABASE_URL`
    - **Value:** `mysql+pymysql://user:password@host:port/database`
